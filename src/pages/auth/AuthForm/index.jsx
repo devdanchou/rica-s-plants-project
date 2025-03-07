@@ -1,14 +1,8 @@
 import { useState } from "react";
 import Field from "./Field";
 
-/**
- *  username: 'daniel',
- *  password: ''
- *
- */
-
 const AuthForm = (props) => {
-  const { fields, submitButtonText } = props;
+  const { fields, submitButtonText, onSubmit } = props;
   const [values, setValues] = useState(() => {
     const initialState = {};
 
@@ -19,8 +13,18 @@ const AuthForm = (props) => {
     return initialState;
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
-    <form className="p-4 m-4 border border-slate-200 rounded-lg font-lato bg-white">
+    <form
+      className="p-4 m-4 border border-slate-200 rounded-lg font-lato bg-white"
+      onSubmit={async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        await onSubmit(values);
+        setIsLoading(false);
+      }}
+    >
       {fields.map((field) => (
         <Field
           key={field.label}
@@ -32,7 +36,14 @@ const AuthForm = (props) => {
           }
         />
       ))}
-      <button className="w-full py-2 mt-4 text-white rounded-lg bg-emerald-700">{submitButtonText}</button>
+      <button className="relative w-full py-2 mt-4 text-white rounded-lg bg-emerald-700">
+        {submitButtonText}
+        <div className="absolute top-0 right-5 flex h-full items-center">
+          {isLoading && (
+            <i className="fa-solid fa-circle-notch text-2xl text-green-200 animate-spin"></i>
+          )}
+        </div>
+      </button>
     </form>
   );
 };
