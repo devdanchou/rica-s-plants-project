@@ -38,11 +38,11 @@ const AuthForm = (props) => {
       ))}
       <button className="relative w-full py-2 mt-4 text-white rounded-lg bg-emerald-700">
         {submitButtonText}
-        <div className="absolute top-0 right-5 flex h-full items-center">
-          {isLoading && (
+        {isLoading && (
+          <div className="absolute top-0 right-5 flex h-full items-center">
             <i className="fa-solid fa-circle-notch text-2xl text-green-200 animate-spin"></i>
-          )}
-        </div>
+          </div>
+        )}
       </button>
     </form>
   );

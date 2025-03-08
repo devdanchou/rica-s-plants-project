@@ -3,12 +3,14 @@ import AuthForm from "./AuthForm";
 import FormContainer from "./FormContainer";
 import { Link, useNavigate } from "react-router-dom";
 import * as userService from "services/users";
+import RedirectToPlantsIfSignedIn from "shared-components/RedirectToPlantsIfSignedIn";
 
 const SignUpPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
+    <RedirectToPlantsIfSignedIn>
     <FormContainer>
       <div className="text-red-600 font-lato">{errorMessage}</div>
       <AuthForm
@@ -61,6 +63,7 @@ const SignUpPage = () => {
         sign in
       </Link>
     </FormContainer>
+    </RedirectToPlantsIfSignedIn>
   );
 };
 

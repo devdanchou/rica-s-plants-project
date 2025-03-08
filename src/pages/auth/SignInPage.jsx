@@ -1,20 +1,25 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import AuthForm from "./AuthForm";
 import FormContainer from "./FormContainer";
 import * as userService from "services/users";
 import { Link, useLocation } from "react-router-dom";
+import SessionContext from "contexts/SessionContext";
+import RedirectToPlantsIfSignedIn from "shared-components/RedirectToPlantsIfSignedIn";
 
 const SignInPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const location = useLocation();
-  console.log(location.state)
+  const sessionContext = useContext(SessionContext);
 
   return (
+    <RedirectToPlantsIfSignedIn>
     <FormContainer>
       <div className="text-red-600 font-lato">{errorMessage}</div>
-      {
-        location.state?.accountCreated && <div className="p-4 mt-2 mb-8 bg-green-200 rounded-lg border-emerald-500 text-emerald-700">Account created successfully. Please sign in.</div>
-      }
+      {location.state?.accountCreated && (
+        <div className="p-4 mt-2 mb-8 bg-green-200 rounded-lg border-emerald-500 text-emerald-700">
+          Account created successfully. Please sign in .
+        </div>
+      )}
       <AuthForm
         fields={[
           { label: "username", type: "text" },
@@ -30,12 +35,12 @@ const SignInPage = () => {
             password: values.password,
           });
 
+          const data = await response.json();
           if (response.status === 201) {
-            console.log("signed in successfully ");
+            sessionContext.signIn(data.capstone_session_token);
             setErrorMessage("");
           } else {
-            const errorDetails = await response.json();
-            setErrorMessage(errorDetails.error);
+            setErrorMessage(data.error);
           }
         }}
       />
@@ -43,6 +48,7 @@ const SignInPage = () => {
         create account
       </Link>
     </FormContainer>
+    </RedirectToPlantsIfSignedIn>
   );
 };
 
