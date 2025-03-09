@@ -2,7 +2,7 @@ import { useState } from "react";
 import AuthForm from "./AuthForm";
 import FormContainer from "./FormContainer";
 import { Link, useNavigate } from "react-router-dom";
-import * as userService from "services/users";
+import * as userService from "services/user";
 import RedirectToPlantsIfSignedIn from "shared-components/RedirectToPlantsIfSignedIn";
 
 const SignUpPage = () => {
@@ -44,9 +44,8 @@ const SignUpPage = () => {
             password: values.password,
           });
 
+          const data = response.json()
           if (response.status === 201) {
-            const successMsg = await response.json();
-            console.log(successMsg.message);
             setErrorMessage("");
             navigate("/", {
               state: {
@@ -54,8 +53,7 @@ const SignUpPage = () => {
               },
             });
           } else {
-            const errorDetails = await response.json();
-            setErrorMessage(errorDetails.error);
+            setErrorMessage(data.error);
           }
         }}
       />

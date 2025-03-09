@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import AuthForm from "./AuthForm";
 import FormContainer from "./FormContainer";
-import * as userService from "services/users";
+import * as userService from "services/user";
 import { Link, useLocation } from "react-router-dom";
 import SessionContext from "contexts/SessionContext";
 import RedirectToPlantsIfSignedIn from "shared-components/RedirectToPlantsIfSignedIn";

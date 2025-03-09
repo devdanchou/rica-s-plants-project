@@ -1,5 +1,6 @@
-const { VITE_API_BASE_URL, VITE_API_KEY } = import.meta.env;
+import * as localStorageService from "services/localStorage";
 
+const { VITE_API_BASE_URL, VITE_API_KEY } = import.meta.env;
 const apiFetch = (method, path, body = null) => {
   const options = {
     method,
@@ -9,6 +10,12 @@ const apiFetch = (method, path, body = null) => {
       "Content-Type": "application/json",
     },
   };
+
+  const sessionToken = localStorageService.getSessionTokenStorage();
+
+  if (sessionToken) {
+    options.headers["Capstone-Session"] = sessionToken;
+  }
 
   if (body) {
     options.body = JSON.stringify(body);
