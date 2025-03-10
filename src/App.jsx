@@ -5,6 +5,7 @@ import SignInPage from "./pages/auth/SignInPage";
 import SignUpPage from "./pages/auth/SignUpPage";
 import SessionContext from "contexts/SessionContext";
 import PlantListPage from "pages/PlantListPage";
+import PlantShowPage from "pages/PlantShowPage";
 import * as LocalStorageService from "services/localStorage";
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/" element={<SignInPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/plants" element={<PlantListPage />} />
+        <Route path="/plants/:plantId" element={<PlantShowPage />} />
       </Routes>
     </BrowserRouter>
     </SessionContext.Provider>
