@@ -17,7 +17,7 @@ const SignInPage = () => {
       <div className="text-red-600 font-lato">{errorMessage}</div>
       {location.state?.accountCreated && (
         <div className="p-4 mt-2 mb-8 bg-green-200 rounded-lg border-emerald-500 text-emerald-700">
-          Account created successfully. Please sign in .
+          Account created successfully. Please sign in.
         </div>
       )}
       <AuthForm

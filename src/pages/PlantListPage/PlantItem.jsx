@@ -1,27 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { POT_COLORS, getRandomElement } from "shared-components/util";
 import clsx from "clsx";
-
-const POT_COLORS = {
-  stone: "bg-stone-200",
-  slate: "bg-slate-300",
-  sky: "bg-sky-700",
-  black: "bg-gray-600",
-  white: "bg-gray-50",
-  amber: "bg-amber-600",
-};
-
-// review
-const getRandomElement = (array) => {
-  return Math.floor(Math.random() * array.length);
-};
 
 const PlantItem = (props) => {
   const { plant } = props;
   const [imageIdx, setImageIdx] = useState(() =>
     getRandomElement(plant.images)
   );
-  console.log({ plant });
 
   return (
     <div className="mx-5 my-8">
